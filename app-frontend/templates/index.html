@@ -41,10 +41,16 @@
         .getElementById("queryButton")
         .addEventListener("click", function () {
           var query = document.getElementById("queryInput").value;
+          var data = { url: [query] }; // Construct JSON object with url and data
+          console.log(data);
 
-          fetch(
-            "http://127.0.0.1:8081//query?query=" + encodeURIComponent(query)
-          )
+          fetch("http://127.0.0.1:8081/querymodel", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data), // Send JSON object in the body
+          })
             .then((response) => response.json())
             .then((data) => {
               // Display the response
