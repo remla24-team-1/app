@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Service Query</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl text-center mb-8">Model Service Query</h1>
+      <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <div class="mb-4">
+          <label
+            for="queryInput"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >Enter Query:</label
+          >
+          <input
+            type="text"
+            id="queryInput"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter your query..."
+          />
+        </div>
+        <button
+          id="queryButton"
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 ease-in-out"
+        >
+          Query Model
+        </button>
+        <div id="response" class="mt-4"></div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("queryButton")
+        .addEventListener("click", function () {
+          var query = document.getElementById("queryInput").value;
+
+          fetch(
+            "http://127.0.0.1:8081//query?query=" + encodeURIComponent(query)
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              // Display the response
+              document.getElementById("response").innerText = JSON.stringify(
+                data,
+                null,
+                2
+              );
+            })
+            .catch((error) => {
+              // Handle errors
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>
