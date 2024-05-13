@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL Phishing Check</title>
-    <!-- Include Tailwind CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -37,18 +36,17 @@
         .getElementById("queryButton")
         .addEventListener("click", function () {
           var query = document.getElementById("queryInput").value;
-          var data = { urls: [query] }; // Construct JSON object with url and data
+          var data = { urls: [query] };
 
           fetch("http://127.0.0.1:8081/querymodel", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data), // Send JSON object in the body
+            body: JSON.stringify(data),
           })
             .then((response) => response.json())
             .then((data) => {
-              // Extracting relevant information from the response
               const resultsContainer =
                 document.getElementById("resultsContainer");
               resultsContainer.innerHTML = "";
@@ -80,7 +78,6 @@
               }
             })
             .catch((error) => {
-              // Handle errors
               console.error("Error:", error);
             });
         });
