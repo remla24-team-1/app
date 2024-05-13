@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Phishing Check</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    class="bg-gradient-to-b from-gray-100 to-gray-200 min-h-screen flex items-center justify-center"
+  >
+    <div class="max-w-md bg-white shadow-md rounded-lg p-8">
+      <h1 class="text-2xl font-bold mb-4">URL Phishing Check</h1>
+      <input
+        type="text"
+        id="queryInput"
+        class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring focus:border-blue-500"
+        placeholder="Enter URL"
+      />
+      <button
+        id="queryButton"
+        class="w-full bg-blue-500 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-500"
+      >
+        Check URL
+      </button>
+
+      <div id="resultsContainer" class="mt-6"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("queryButton")
+        .addEventListener("click", function () {
+          var query = document.getElementById("queryInput").value;
+          var data = { urls: [query] };
+
+          fetch("http://127.0.0.1:8081/querymodel", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const resultsContainer =
+                document.getElementById("resultsContainer");
+              resultsContainer.innerHTML = "";
+
+              if (data && data.results && data.results.length > 0) {
+                data.results.forEach((result) => {
+                  const resultElement = document.createElement("div");
+                  resultElement.classList.add(
+                    "bg-gray-100",
+                    "p-4",
+                    "rounded-lg",
+                    "mb-4"
+                  );
+
+                  resultElement.innerHTML = `
+                    <p><span class="font-semibold">${
+                      result.url
+                    }</span> is classified as a <span class="font-semibold">${
+                    result.classification ? "phishing" : "non-phishing"
+                  }</span> URL.</p><p> Probability: ${result.probability}</p>`;
+
+                  resultsContainer.appendChild(resultElement);
+                });
+              } else {
+                const errorElement = document.createElement("p");
+                errorElement.textContent = "No results found in the response.";
+                errorElement.classList.add("text-red-500", "font-semibold");
+                resultsContainer.appendChild(errorElement);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>
