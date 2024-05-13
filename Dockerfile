@@ -9,7 +9,7 @@ COPY ./app-frontend /app/app-frontend
 
 COPY ./app-service /app/app-service
 
-RUN pip install Flask
+RUN pip install Flask==3.0.3
 
 EXPOSE 5000
 
