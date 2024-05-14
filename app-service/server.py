@@ -3,11 +3,11 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 import remlaversionutilpy
 import requests
-from dotenv import load_dotenv
 
 app = Flask(__name__, template_folder='../app-frontend/templates', static_folder='../app-frontend/static')
 CORS(app)
-load_dotenv()
+
+model_service_url = os.getenv('MODEL_SERVICE_URL')
 
 @app.route('/')
 def index():
@@ -20,8 +20,11 @@ def version():
 @app.route('/check-url', methods=['POST'])
 def check_url():
     json = request.get_json()
-    response = requests.post(os.getenv('MODEL_SERVICE_URL'), json=json)
+    for i in range(10):
+        print(model_service_url)
+    #response = requests.post(os.getenv('MODEL_SERVICE_URL'), json=json)
+    response = requests.post(model_service_url + "/querymodel", json=json)
     return response.json()
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(host="0.0.0.0", debug=True, port=8080)
