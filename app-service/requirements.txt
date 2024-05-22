@@ -1,0 +1,7 @@
+Flask==3.0.3
+Flask-Cors==3.0.10
+remlaversionutilpy==0.1.1.dev1
+python-dotenv==1.0.1
+Requests==2.31.0
+psutil
+prometheus_client==0.17.0
