@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 from flask_cors import CORS
 import remlaversionutilpy
 import requests
@@ -62,7 +62,7 @@ def metrics():
 Timer(60, update_memory_usage).start()
 Timer(60, update_cpu_usage).start()
 
-start_http_server(9090)
+# start_http_server(9090)
 
 
 
