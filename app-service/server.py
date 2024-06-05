@@ -63,8 +63,8 @@ def post_metrics():
 
 # prometheus update time
 
-Timer(60, update_memory_usage).start()
-Timer(60, update_cpu_usage).start()
+# Timer(60, update_memory_usage).start()
+# Timer(60, update_cpu_usage).start()
 
 # start_http_server(9090)
 
