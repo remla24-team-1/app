@@ -23,12 +23,12 @@ model_service_url = os.getenv('MODEL_SERVICE_URL')
 # CPU_USAGE = Gauge('cpu_usage_percent', 'CPU usage percentage')
 # ACTIVE_USERS = Gauge('active_users', 'Number of active users')
 
-def update_memory_usage():
-    process = psutil.Process()
-    memory_info = process.memory_info()
+# def update_memory_usage():
+#     process = psutil.Process()
+#     memory_info = process.memory_info()
     # MEMORY_USAGE.set(memory_info.rss)  # Resident Set Size (actual physical memory)
 
-def update_cpu_usage():
+# def update_cpu_usage():
     # CPU_USAGE.set(psutil.cpu_percent(interval=1))  # Get CPU usage percentage over 1 second
 
 @app.route('/')
