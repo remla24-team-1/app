@@ -57,6 +57,10 @@ def metrics():
 
     return Response(m, mimetype="text/plain")
 
+@app.route('/my_metrics', methods=['POST'])
+def post_metrics():
+    return f'metrics {count_index}'
+
 # prometheus update time
 
 Timer(60, update_memory_usage).start()
