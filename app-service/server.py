@@ -11,25 +11,17 @@ import psutil # library to monitor CPU and Memory (monitors computer usage)
 from threading import Timer
 
 app = Flask(__name__, template_folder='../app-frontend/templates', static_folder='../app-frontend/static')
+
 count_index = 0
+count_predictions = 0 
+
+
 CORS(app)
 
 model_service_url = os.getenv('MODEL_SERVICE_URL')
 
-# # Prometheus Metrics
 
-# REQUESTS_DAILY = Counter('requests_daily_total', 'Total number of requests per day')
-# MEMORY_USAGE = Gauge('memory_usage_bytes', 'Memory usage in bytes')
-# CPU_USAGE = Gauge('cpu_usage_percent', 'CPU usage percentage')
-# ACTIVE_USERS = Gauge('active_users', 'Number of active users')
 
-# def update_memory_usage():
-#     process = psutil.Process()
-#     memory_info = process.memory_info()
-    # MEMORY_USAGE.set(memory_info.rss)  # Resident Set Size (actual physical memory)
-
-# def update_cpu_usage():
-    # CPU_USAGE.set(psutil.cpu_percent(interval=1))  # Get CPU usage percentage over 1 second
 
 @app.route('/')
 def index():
@@ -60,14 +52,6 @@ def metrics():
 @app.route('/my_metrics', methods=['POST'])
 def post_metrics():
     return f'metrics {count_index}'
-
-# prometheus update time
-
-# Timer(60, update_memory_usage).start()
-# Timer(60, update_cpu_usage).start()
-
-# start_http_server(9090)
-
 
 
 if __name__ == '__main__':
