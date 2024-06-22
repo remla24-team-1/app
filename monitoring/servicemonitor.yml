@@ -10,4 +10,5 @@ spec:
     matchLabels:
       app: app-service  # Match your app-service label
   endpoints:
+    - interval: 1s
     - port: "9090"       # The port your Flask app exposes metrics on

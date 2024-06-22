@@ -35,10 +35,12 @@ def version():
 
 @app.route('/check-url', methods=['POST'])
 def check_url():
+    global count_predictions
+    count_predictions += 1
+
     json = request.get_json()
     for i in range(10):
         print(model_service_url)
-    #response = requests.post(os.getenv('MODEL_SERVICE_URL'), json=json)
     response = requests.post(model_service_url + "/querymodel", json=json)
     return response.json()
 
@@ -46,6 +48,7 @@ def check_url():
 def metrics():
     global count_index
     m = "num_requests{{page=\"index\"}} {}\n".format(count_index)
+    m += "num_predictions {}\n".format(count_predictions) 
 
     return Response(m, mimetype="text/plain")
 
