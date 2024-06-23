@@ -1,14 +1,14 @@
 
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: mymonitor
-  labels:
-    release: myprom  # Or the label used by your Prometheus setup
-spec:
-  selector:
-    matchLabels:
-      app: app  # Match your app-service label
-  endpoints:
-    - interval: 1s
-    - port: "9090"       # The port your Flask app exposes metrics on
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: mymonitor
+#   labels:
+#     release: myprom  # Or the label used by your Prometheus setup
+# spec:
+#   selector:
+#     matchLabels:
+#       app: app-service  # Match your app-service label
+#   endpoints:
+#     - interval: 1s
+#     - port: "9090"       # The port your Flask app exposes metrics on

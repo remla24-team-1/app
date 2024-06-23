@@ -43,7 +43,7 @@ def check_url():
     # global count_predictions
     # count_predictions += 1
     PREDICTION_COUNTER.inc()
-
+    
     json = request.get_json()
     for i in range(10):
         print(model_service_url)
@@ -55,7 +55,7 @@ def metrics():
     # global count_index
     # m = "num_requests{{page=\"index\"}} {}\n".format(count_index)
     # m += "num_predictions {}\n".format(count_predictions) 
-    return Response(generate_latest(), mimetype="text/plain")
+    return Response(generate_latest(), mimetype=str('text/plain; version=0.0.4; charset=utf-8'))
 
 # @app.route('/my_metrics', methods=['POST'])
 # def post_metrics():
