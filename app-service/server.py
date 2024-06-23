@@ -52,10 +52,9 @@ def check_url():
 
 @app.route('/metrics', methods=['GET'])
 def metrics():
-    global count_index
+    # global count_index
     # m = "num_requests{{page=\"index\"}} {}\n".format(count_index)
     # m += "num_predictions {}\n".format(count_predictions) 
-
     return Response(generate_latest(), mimetype="text/plain")
 
 @app.route('/my_metrics', methods=['POST'])
