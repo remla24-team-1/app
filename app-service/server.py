@@ -57,11 +57,10 @@ def metrics():
     # m += "num_predictions {}\n".format(count_predictions) 
     return Response(generate_latest(), mimetype="text/plain")
 
-@app.route('/my_metrics', methods=['POST'])
-def post_metrics():
-    return f'metrics {count_index}'
-
+# @app.route('/my_metrics', methods=['POST'])
+# def post_metrics():
+#     return f'metrics {count_index}'
 
 if __name__ == '__main__':
-    start_http_server(9090)
+    start_http_server(9191)
     app.run(host="0.0.0.0", debug=True, port=8080)
