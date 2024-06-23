@@ -4,6 +4,11 @@ from flask_cors import CORS
 import remlaversionutilpy
 import requests
 
+from prometheus_client import Counter, generate_latest, start_http_server
+
+REQUEST_COUNTER = Counter('num_requests', 'Number of requests served by the application', ['endpoint'])
+PREDICTION_COUNTER = Counter('num_predictions', 'Number of predictions made by the application')
+
 
 # app-monitoring libraries
 import psutil # library to monitor CPU and Memory (monitors computer usage)
@@ -12,8 +17,8 @@ from threading import Timer
 
 app = Flask(__name__, template_folder='../app-frontend/templates', static_folder='../app-frontend/static')
 
-count_index = 0
-count_predictions = 0 
+# count_index = 0
+# count_predictions = 0 
 
 
 CORS(app)
@@ -25,8 +30,8 @@ model_service_url = os.getenv('MODEL_SERVICE_URL')
 
 @app.route('/')
 def index():
-    global count_index
-    count_index += 1
+    REQUEST_COUNTER.labels(endpoint='/').inc()
+    # count_index += 1
     return render_template('index.html')
 
 @app.route('/version', methods=['GET'])
@@ -35,8 +40,9 @@ def version():
 
 @app.route('/check-url', methods=['POST'])
 def check_url():
-    global count_predictions
-    count_predictions += 1
+    # global count_predictions
+    # count_predictions += 1
+    PREDICTION_COUNTER.inc()
 
     json = request.get_json()
     for i in range(10):
@@ -47,10 +53,10 @@ def check_url():
 @app.route('/metrics', methods=['GET'])
 def metrics():
     global count_index
-    m = "num_requests{{page=\"index\"}} {}\n".format(count_index)
-    m += "num_predictions {}\n".format(count_predictions) 
+    # m = "num_requests{{page=\"index\"}} {}\n".format(count_index)
+    # m += "num_predictions {}\n".format(count_predictions) 
 
-    return Response(m, mimetype="text/plain")
+    return Response(generate_latest(), mimetype="text/plain")
 
 @app.route('/my_metrics', methods=['POST'])
 def post_metrics():
@@ -58,4 +64,5 @@ def post_metrics():
 
 
 if __name__ == '__main__':
+    start_http_server(9090)
     app.run(host="0.0.0.0", debug=True, port=8080)
