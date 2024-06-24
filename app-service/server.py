@@ -89,5 +89,5 @@ def metrics():
 #     return f'metrics {count_index}'
 
 if __name__ == '__main__':
-    start_http_server(8000)
+    # start_http_server(8000)
     app.run(host="0.0.0.0", debug=True, port=8080)
