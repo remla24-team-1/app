@@ -15,7 +15,7 @@ url_check_count = 0
 visit_count_today = 0
 response_times = []
 
-histogram_buckets = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+histogram_buckets = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 histogram_data = { bucket: 0 for bucket in histogram_buckets }
 histogram_data['+Inf'] = 0
 
