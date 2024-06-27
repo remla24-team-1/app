@@ -7,6 +7,9 @@ from flask import Flask, render_template, request, Response
 from flask_cors import CORS
 import remlaversionutilpy
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__, template_folder='../app-frontend/templates', static_folder='../app-frontend/static')
 CORS(app)
@@ -50,7 +53,7 @@ def check_url():
     url_check_count += 1
 
     json = request.get_json()
-    response = requests.post(os.getenv('MODEL_SERVICE_URL'), json=json)
+    response = requests.post(os.getenv('MODEL_SERVICE_URL') + '/querymodel', json=json)
 
     duration = time.time() - start_time
     response_times.append(duration)
