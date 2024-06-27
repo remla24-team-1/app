@@ -5,7 +5,7 @@ This repo contains the frontend that works together with the [ml-service](https:
 ## To run the frontend locally for testing or for developing: 
 * First clone the repository using `git clone git@github.com:remla24-team-1/app.git` and access it with `cd app`.
 * Create an environment file called `.env` containing MODEL_SERVICE_URL=http://172.17.0.2:8081 within the app-service folder root. For example: `echo MODEL_SERVICE_URL=http://172.17.0.2:8081 > .env`
-* Build the project using `docker build -t ghcr.io/remla24-team-1/app:latest .`, and run the built image using `docker run ghcr.io/remla24-team-1/app:latest`.
+* Build the project using `docker build -t ghcr.io/remla24-team-1/app:latest .`, and run the built image using `docker run -it -p8080:8080 --rm ghcr.io/remla24-team-1/app:latest`.
 
 The service will be hosted at localhost. To access the backend service, the model-service image also has to be ran.
 
