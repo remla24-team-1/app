@@ -8,3 +8,7 @@ This repo contains the frontend that works together with the [ml-service](https:
 * Build the project using `docker build`, and run the built image using `docker run`.
 
 The service will be hosted at localhost. To access the backend service, the model-service image also has to be ran.
+
+## Release new image
+
+To release a new docker image, create a git tag with `git tag vX.X.X`, and push that tag using `git push origin tag vX.X.X`. The GitHub workflow will then automatically update the corresponding versions accessible at [packages/app](https://github.com/orgs/remla24-team-1/packages/container/package/app).
